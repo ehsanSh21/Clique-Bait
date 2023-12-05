@@ -128,6 +128,20 @@ GROUP BY prod_id,prod_name
 ;
 ```
 
+###### output:
+
+| prod_id | prod_name      | views_count | added_to_cart_count | but_not_purchased_count | purchased_count |
+| ------- | -------------- | ----------- | ------------------- | ----------------------- | --------------- |
+| 9       | Oyster         | 1568        | 943                 | 217                     | 726             |
+| 6       | Abalone        | 1525        | 932                 | 233                     | 699             |
+| 3       | Tuna           | 1515        | 931                 | 234                     | 697             |
+| 5       | Black Truffle  | 1469        | 924                 | 217                     | 707             |
+| 8       | Crab           | 1564        | 949                 | 230                     | 719             |
+| 1       | Salmon         | 1559        | 938                 | 227                     | 711             |
+| 2       | Kingfish       | 1559        | 920                 | 213                     | 707             |
+| 4       | Russian Caviar | 1563        | 946                 | 249                     | 697             |
+| 7       | Lobster        | 1547        | 968                 | 214                     | 754             |
+
 
 
 
