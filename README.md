@@ -250,6 +250,18 @@ from
         ;
 ```
 
+##### Cleaned data for campaign_identifier table:
+| campaign_id | products | campaign_name                     | start_date               | end_date                 |
+| ----------- | -------- | --------------------------------- | ------------------------ | ------------------------ |
+| 1           | 2        | BOGOF - Fishing For Compliments   | 2020-01-01T00:00:00.000Z | 2020-01-14T00:00:00.000Z |
+| 1           | 3        | BOGOF - Fishing For Compliments   | 2020-01-01T00:00:00.000Z | 2020-01-14T00:00:00.000Z |
+| 1           | 1        | BOGOF - Fishing For Compliments   | 2020-01-01T00:00:00.000Z | 2020-01-14T00:00:00.000Z |
+| 2           | 5        | 25% Off - Living The Lux Life     | 2020-01-15T00:00:00.000Z | 2020-01-28T00:00:00.000Z |
+| 2           | 4        | 25% Off - Living The Lux Life     | 2020-01-15T00:00:00.000Z | 2020-01-28T00:00:00.000Z |
+| 3           | 7        | Half Off - Treat Your Shellf(ish) | 2020-02-01T00:00:00.000Z | 2020-03-31T00:00:00.000Z |
+| 3           | 8        | Half Off - Treat Your Shellf(ish) | 2020-02-01T00:00:00.000Z | 2020-03-31T00:00:00.000Z |
+| 3           | 6        | Half Off - Treat Your Shellf(ish) | 2020-02-01T00:00:00.000Z | 2020-03-31T00:00:00.000Z |
+
 
 
 
