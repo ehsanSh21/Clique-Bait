@@ -145,5 +145,115 @@ GROUP BY prod_id,prod_name
 
 
 
+#### Campaigns Analysis:
+
+In this part firstaval i did cleaning on clique_bait.campaign_identifier table because it is not normalized!
+
+1NF normalization: a single cell must not hold more than one value (atomicity) 
+
+clique_bait.campaign_identifier Table:
+| campaign_id | products | campaign_name                     | start_date               | end_date                 |
+| ----------- | -------- | --------------------------------- | ------------------------ | ------------------------ |
+| 1           | 1-3      | BOGOF - Fishing For Compliments   | 2020-01-01T00:00:00.000Z | 2020-01-14T00:00:00.000Z |
+| 2           | 4-5      | 25% Off - Living The Lux Life     | 2020-01-15T00:00:00.000Z | 2020-01-28T00:00:00.000Z |
+| 3           | 6-8      | Half Off - Treat Your Shellf(ish) | 2020-02-01T00:00:00.000Z | 2020-03-31T00:00:00.000Z |
+
+
+##### Data Cleaning for clique_bait.campaign_identifier Table:
+
+```sql
+  CREATE TABLE clique_bait.cleaned_campaign_identifier (
+  "campaign_id" INTEGER,
+  "products" INTEGER,
+  "campaign_name" VARCHAR(33),
+  "start_date" TIMESTAMP,
+  "end_date" TIMESTAMP
+);
+
+INSERT INTO clique_bait.cleaned_campaign_identifier
+  ("campaign_id", "products", "campaign_name", "start_date", "end_date")
+WITH re_cte AS(
+
+WITH RECURSIVE number_series AS (
+   SELECT
+     1 AS rn
+   UNION ALL
+   SELECT
+     rn + 1
+   FROM
+     number_series
+   WHERE
+     rn < (SELECT
+   MAX(CAST(split_part(products, '-', 2) AS INTEGER) -
+CAST(split_part(products, '-', 1) AS INTEGER)) AS max_difference
+FROM
+   clique_bait.campaign_identifier)
+        -- the maximum difference between first and second number expected
+
+), users_cte AS (
+   SELECT
+     campaign_id,
+     split_part(sub.products, '-', 1)::integer AS first_number,
+     split_part(sub.products, '-', 2)::integer AS second_number,
+     campaign_name,
+     start_date,
+     end_date
+   FROM
+     (
+       SELECT
+         *
+       FROM
+         clique_bait.campaign_identifier
+     ) as sub
+)
+SELECT
+   n.rn,
+   u.campaign_id,
+   u.first_number,
+   u.second_number,
+   u.campaign_name,
+   u.start_date,
+   u.end_date
+FROM
+   users_cte u
+CROSS JOIN
+   number_series n
+WHERE
+   n.rn <= u.second_number - u.first_number
+        ORDER BY campaign_id,rn
+        )
+select
+sub3.campaign_id,
+sub3.products_column as product_id,
+clique_bait.campaign_identifier.campaign_name,
+clique_bait.campaign_identifier.start_date,
+clique_bait.campaign_identifier.end_date
+from
+        (SELECT
+campaign_id,
+unnest(array_append(string_to_array(string_agg, ', '),
+first_number::text)::int[]) as products_column
+from
+
+        (SELECT
+   campaign_id,
+        string_agg(adjusted_row_number::text, ', '),
+        first_number
+        FROM
+        (SELECT
+        first_number + rn AS adjusted_row_number,
+        *
+        FROM
+        re_cte) as sub
+        GROUP BY sub.campaign_id,sub.first_number) as sub2) as sub3
+        join clique_bait.campaign_identifier on clique_bait.campaign_identifier.campaign_id=sub3.campaign_id
+        ;
+```
+
+
+
+
+
+
 
 
