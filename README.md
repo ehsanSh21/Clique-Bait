@@ -147,7 +147,7 @@ GROUP BY prod_id,prod_name
 
 #### Campaigns Analysis:
 
-In this part firstaval i did cleaning on clique_bait.campaign_identifier table because it is not normalized!
+In this part first of all i did cleaning on clique_bait.campaign_identifier table because it is not normalized!
 
 1NF normalization: a single cell must not hold more than one value (atomicity) 
 
