@@ -294,6 +294,26 @@ SELECT campaign_id, products
 FROM clique_bait.cleaned_campaign_identifier;
 
 ```
+##### Cleaned data for Campaigns table( 2NF normalization):
+
+| campaign_id | campaign_name                     | start_date               | end_date                 |
+| ----------- | --------------------------------- | ------------------------ | ------------------------ |
+| 3           | Half Off - Treat Your Shellf(ish) | 2020-02-01T00:00:00.000Z | 2020-03-31T00:00:00.000Z |
+| 1           | BOGOF - Fishing For Compliments   | 2020-01-01T00:00:00.000Z | 2020-01-14T00:00:00.000Z |
+| 2           | 25% Off - Living The Lux Life     | 2020-01-15T00:00:00.000Z | 2020-01-28T00:00:00.000Z |
+
+##### Cleaned data for Campaign_Products table( 2NF normalization):
+
+| campaign_id | product_id |
+| ----------- | ---------- |
+| 1           | 2          |
+| 1           | 3          |
+| 1           | 1          |
+| 2           | 5          |
+| 2           | 4          |
+| 3           | 7          |
+| 3           | 8          |
+| 3           | 6          |
 
 
 
