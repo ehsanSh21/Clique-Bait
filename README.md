@@ -250,7 +250,7 @@ from
         ;
 ```
 
-##### Cleaned data for campaign_identifier table:
+##### Cleaned data for campaign_identifier table( 1NF normalization):
 | campaign_id | products | campaign_name                     | start_date               | end_date                 |
 | ----------- | -------- | --------------------------------- | ------------------------ | ------------------------ |
 | 1           | 2        | BOGOF - Fishing For Compliments   | 2020-01-01T00:00:00.000Z | 2020-01-14T00:00:00.000Z |
@@ -261,6 +261,41 @@ from
 | 3           | 7        | Half Off - Treat Your Shellf(ish) | 2020-02-01T00:00:00.000Z | 2020-03-31T00:00:00.000Z |
 | 3           | 8        | Half Off - Treat Your Shellf(ish) | 2020-02-01T00:00:00.000Z | 2020-03-31T00:00:00.000Z |
 | 3           | 6        | Half Off - Treat Your Shellf(ish) | 2020-02-01T00:00:00.000Z | 2020-03-31T00:00:00.000Z |
+
+
+##### after 1NF normalization, with 2 queries i created Campaigns Table and Campaign_Products for 2NF normalization, and insert the values from clique_bait.campaign_identifier that i created for 1NF normalization:
+
+```sql
+
+-- Create Campaigns Table
+CREATE TABLE clique_bait.campaigns_2nf (
+  campaign_id INTEGER PRIMARY KEY,
+  campaign_name VARCHAR(255),
+  start_date TIMESTAMP,
+  end_date TIMESTAMP
+);
+
+-- Create Campaign_Products Table
+CREATE TABLE clique_bait.campaign_products_2nf (
+  campaign_id INTEGER,
+  product_id INTEGER,
+  PRIMARY KEY (campaign_id, product_id),
+  FOREIGN KEY (campaign_id) REFERENCES clique_bait.campaigns_2nf(campaign_id)
+);
+
+-- Insert Data into Campaigns Table
+INSERT INTO clique_bait.campaigns_2nf (campaign_id, campaign_name, start_date, end_date)
+SELECT DISTINCT campaign_id, campaign_name, start_date, end_date
+FROM clique_bait.cleaned_campaign_identifier;
+
+-- Insert Data into Campaign_Products Table
+INSERT INTO clique_bait.campaign_products_2nf (campaign_id, product_id)
+SELECT campaign_id, products
+FROM clique_bait.cleaned_campaign_identifier;
+
+```
+
+
 
 
 
