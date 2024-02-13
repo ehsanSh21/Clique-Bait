@@ -263,7 +263,7 @@ from
 | 3           | 6        | Half Off - Treat Your Shellf(ish) | 2020-02-01T00:00:00.000Z | 2020-03-31T00:00:00.000Z |
 
 
-##### after 1NF normalization, with 2 queries i created Campaigns Table and Campaign_Products for 2NF normalization, and insert the values from clique_bait.campaign_identifier that i created for 1NF normalization:
+##### after 1NF normalization, with this queries i created Campaigns Table and Campaign_Products for 2NF normalization, and insert the values from clique_bait.campaign_identifier that i created for 1NF normalization:
 
 ```sql
 
